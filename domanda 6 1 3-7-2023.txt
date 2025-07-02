@@ -1,0 +1,106 @@
+In un programma C si vogliono gestire dati su pernottamenti in Hotel in varie città. Per ogni città si vogliono raccogliere i dati in una struct C definita come segue:
+
+ 
+
+typedef struct {char nome[MAXL]; int prezzo_medio; int notti_persona;} citta;
+
+ 
+
+Un file di testo, il cui nome è passato come primo argomento da linea di commando, contiene dati estratti da (al più 100) ricevute/fatture di pernottamenti, scritte senza un ordine specifico. Ogni linea contiene, separati da spazi, il nome della città (una stringa priva di spazi di al massimo 30 caratteri), e tre numeri interi, che rappresentano, rispettivamente, il numero di notti, il numero di persone e il costo complessivo del pernottamento.
+
+Segue un esempio di possibile file
+
+Londra 2 4 600
+
+Parigi 1 2 90
+
+Roma 3 2 300
+
+Londra 2 1 200
+
+Madrid 4 4 600
+
+Roma 2 3 200
+
+Madrid 1 1 120
+
+Londra 3 2 400
+
+ 
+
+in cui, ad esempio, la prima riga descrive un pernottamento a Londra per 2 notti, 4 persone, a un costo complessivo di 600 Euro (per semplicità, si suppongono tutti i costi convertiti in Euro).
+
+Data una città, si definisce come notti_persona il numero totale di notti di pernottamento: ad esempio, un pernottamento di 2 notti per 3 persone va contato come 6 notti_persona.
+
+ 
+
+Dato il seguente frammento di codice:
+
+ 
+
+void stampa(citta *elP[], int n) {
+
+    int i;
+
+    for (i=0; i<n; i++) {
+
+      printf("citta: %s, prezzo medio a persona/notte: %d, notti_persona: %d\n",
+
+             /* COMPLETARE QUESTA PARTE */);
+
+    }
+
+}
+
+int main (int argc, char *argv[]) {
+
+  citta elenco[MAXC], *elP[MAXC];
+
+  int th = atoi(argv[2]);
+
+  int n = leggi(elenco, MAXC, argv[1]);
+
+  int num = selectByPriceSorted(elenco, n, elP, th);
+
+  stampa(elP,num);
+
+  return 0;
+
+}
+
+ 
+
+1)     La funzione leggi (non riportata) legge il file in input e accumula i dati nel vettore elenco, in cui, per ogni città, va memorizzato, oltre al nome, il numero totale di notti_persona e il prezzo medio di un pernottamento per notte e persona: la media va fatta considerando il costo totale dei pernottamenti in una città diviso per il numero totale di notti_persona relativi ai pernottamenti. La media va calcolata arrotondando all’intero più vicino.
+
+2)     La funzione selectByPriceSorted, dato l’elenco totale delle città, seleziona quelle con prezzo medio di pernottamento a notte_persona maggiore o uguale al parametro th, ottenuto a partire dal secondo argomento sulla linea di comando. I puntatori alle struct selezionate vanno accumulati nel vettore di puntatori elP e ordinati per nomi in ordine crescente, mentre il numero di città selezionate viene ritornato come risultato e assegnato alla variabile num.
+
+3)     La funzione stampa stampa i dati relativi alle città selezionate, a partire dal vettore elP.
+
+ 
+
+DOMANDE
+
+
+ 
+
+La funzione stampa è già parzialmente realizzata: si chiede semplicemente di completare la parte indicata come commento. Le funzioni leggi e selectByPriceSorted vanno realizzate.
+
+
+ESEMPIO
+
+A titolo di esempio, in corrispondenza al file precedentemente riportato,
+
+
+nel caso di soglia uguale a 30, l’output sarebbe
+Londra 75 16
+
+Madrid 42 17
+Parigi 45 2
+
+Roma 42 12
+
+
+Mentre nel caso di soglia 44 sarebbe
+Londra 75 16
+
+Parigi 45 2

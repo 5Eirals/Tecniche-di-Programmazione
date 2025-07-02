@@ -1,0 +1,49 @@
+In un programma C, la seguente struct viene utilizzata per rappresentare un prodotto in un magazzino:
+
+typedef struct {char serialID[13]; int n_items;} product;
+
+Il serialID è un identificativo univoco di un prodotto, rappresentato da una stringa alfanumerica di 12 caratteri senza spazi. n_items rappresenta il numero di articoli disponibili per lo stesso prodotto.
+
+L'elenco dei prodotti attualmente presenti nel magazzino è contenuto in un file di testo, il cui nome viene passato come argomento dalla riga di comando. Questo file contiene i record di un massimo di 200 prodotti diversi, riportati senza un ordine specifico. Ogni riga del file riporta il serialID e il numero di articoli di un prodotto, con spazi come separatori. Si supponga che il file non sia vuoto e che un prodotto possa essere riportato più di una volta nel file.
+
+Si consideri il seguente frammento di codice:
+
+int main (int argc, char *argv[]) {
+
+  product listProducts[200], *refProducts[200];
+
+  int i, nprod = readProducts(listProducts, 200, argv[1]);
+
+  for (i=0;i<nprod;i++)
+
+     refProducts[i]=&listProducts[i];
+
+  sortProducts(refProducts,nprod);
+
+  // … resto del programma (omesso)
+
+  return 0;
+
+}
+
+1)     La funzione readProducts legge il file di input e memorizza i dati dei prodotti nell'array listProducts, restituendo al chiamante il numero di prodotti memorizzati.
+
+2)     La funzione sortProducts ordina i prodotti in ordine alfabetico per serialID, applicando l’algoritmo di selection sort. La funzione non deve modificare l'ordine originale dell'array listProducts. Deve invece ordinare un array di puntatori ai prodotti (vedere l'array refProducts).
+
+ 
+
+Si implementi le funzioni readProducts e sortProducts. I prototipi delle funzioni devono essere compatibili con le corrispondenti chiamate di funzione nel codice fornito.
+
+ 
+
+ESEMPIO DEL CONTENUTO DEL FILE IN INPUT
+
+XY237H24ABCD    24
+
+ZH117H24ABCD    2
+
+AR217H24AACD    13
+
+XY237H24ABCD    4
+
+BB117H24AACD    1
